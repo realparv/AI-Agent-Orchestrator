@@ -10,12 +10,15 @@ export const SubmitButton = () => {
 
     const handleSubmit = async () => {
         try {
+            const params = new URLSearchParams();
+            params.append('pipeline', JSON.stringify({ nodes, edges }));
+
             const response = await fetch('http://localhost:8000/pipelines/parse', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: JSON.stringify({ nodes, edges }),
+                body: params,
             });
 
             if (!response.ok) {
